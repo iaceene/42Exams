@@ -11,7 +11,6 @@ void ft_putstr(char *s)
     }
 }
 
-
 int ft_isspliter(char c)
 {
     return (c == ' ' || c == '\n' || c == '\t');
@@ -86,7 +85,7 @@ void ft_rostring(char **words, int count)
     char *tmp = words[0];
     while (i < count)
     {
-        ft_swap(&words[i], &words[i - 1]);
+        ft_swap(&words[i], &words[i - 1]); // all the logic is here, keep the first in a tmp var, left shift every word, swap the tmp with the last
         i++;
     }
     ft_swap(&tmp, &words[count]);
@@ -94,7 +93,7 @@ void ft_rostring(char **words, int count)
     while (i < count)
     {
         ft_putstr(words[i]);
-        if(i + 1 < count)
+        if(i + 1 < count) // the last word must be not ended with a sapce
             ft_putstr(" ");
         free(words[i]);
         i++;
@@ -105,18 +104,18 @@ void ft_rostring(char **words, int count)
 void ft(char *s)
 {
     int count = ft_count(s);
+    int i = 0;
+    int index = 0;
+
     if(count == 1)
     {
-        new_putstr(s);
+        new_putstr(s); // the first string must not be begin || ended with a space 
         return;
     }
     char **words = malloc(sizeof(char *) * (count + 1));
     if(!words)
         return;
-    int i = 0;
-    int index = 0;
-    words[count] = NULL;
-    
+    words[count] = NULL;    
     while(i < count)
     {
         words[i] = malloc(ft_size(s, &index) + 1);
@@ -136,7 +135,7 @@ void ft(char *s)
 
 int main(int c, char **v)
 {
-    if(c >= 2)
+    if(c >= 2) // attention!
         ft(v[1]);
     write(1, "\n", 1);
     return (0);
